@@ -1,0 +1,17 @@
+Esse projeto eu organizei de uma forma diferente. Todos os arquivos que envolvem o sistema (servidor, arquivos estáticos, públicos) eu adicionei dentro da pasta src
+
+Todos os arquivos de configuração ficam fora da pasta src
+
+Dentro da pasta src segue a mesma lógica, com a pasta views onde contem os arquivos estáticos e na pasta public todos os arquivos públicos
+
+No package-json eu não usei o script como start, usei como dev, pois ele vai ser rodado apenas no ambiente de desenvolvimento: "dev": "nodemon src/server.js"
+
+Para inicializar esse script utilizei: npm run dev
+
+Como as views estão dentro da pasta src, eu tive que fazer uma pequena configuração para o ejs encontrar a pasta, pois por padrão, ele sempre procura a pasta views que estão na raiz do projeto
+
+app.set('views', path.join(__dirname, 'views'))
+
+Vou commitar por etapas: 1 commitar que eu instalei as bibliotecas e segundo comitar que eu fiz as estruturas de pastas do projeto
+
+git add package-lock.json package.json - Posso adicionar +1 arquivo por linha
