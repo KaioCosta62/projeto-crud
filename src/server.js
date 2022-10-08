@@ -1,9 +1,13 @@
 // Importando os módulos
 const express = require('express')
 const path = require('path')
+const db = require('./database/index')
 
 //Inicializa o express
 const app = express()
+
+//Conexão com o banco de dados
+db.connect()
 
 //Definindo o templete engine (EJS)
 app.set('view engine', 'ejs')

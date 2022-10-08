@@ -1,0 +1,21 @@
+
+Primeiramente vou importar o mongoose no server
+
+Mongoose é uma biblioteca de modelagem de dados de objeto para mongodb e nodejs
+Agora vou utilizar o método connect para conectar ao mongodb, o método connect recebe uma string, que é o endereço dado no mongodb compass
+
+Eu preciso criar uma variável para receber mongoose.connection
+
+const db = mongoose.connection
+
+db.once('open', () => {
+  console.log('Connected to database')
+})
+
+Assim que o banco de dados conectar, vai ser executado um callback pra exibir esse console.log
+
+db.on('error', () => {
+  console.error.bind(console,'Connection Error')
+})
+
+Método que vai ser executado se tiver algum erro na conexão com o banco de dados
