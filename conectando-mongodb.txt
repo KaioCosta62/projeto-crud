@@ -2,6 +2,7 @@
 Primeiramente vou importar o mongoose no server
 
 Mongoose é uma biblioteca de modelagem de dados de objeto para mongodb e nodejs
+
 Agora vou utilizar o método connect para conectar ao mongodb, o método connect recebe uma string, que é o endereço dado no mongodb compass
 
 Eu preciso criar uma variável para receber mongoose.connection

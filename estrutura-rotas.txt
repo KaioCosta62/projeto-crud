@@ -1,0 +1,19 @@
+Não é ideal colocar as rotas no server, para isso vou criar uma pasta separada para colocar as rotas da minha aplicação, pois o arquivo vai ficar bagunçado e não vai ser escalável
+
+O server vai ser responsável somente para definir o caminho das rotas
+
+O app executa o express somente 1 vez para levantar o servidor
+
+const router = require('express').Router()
+
+Note que eu estou importando o express e chamando  o método Router(), responsável pelas rotas
+
+router.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Home'
+  })
+})
+
+No meu servidor, eu faço o require das minhas rotas
+
+const routes = require('./routes/index')

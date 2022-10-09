@@ -1,9 +1,10 @@
 // Importando os módulos
 const express = require('express')
 const path = require('path')
+const routes = require('./routes/index')
 const db = require('./database/index')
 
-//Inicializa o express
+//Inicializando o express
 const app = express()
 
 //Conexão com o banco de dados
@@ -21,12 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 //Habilita o server para receber dados via post formulários
 app.use(express.urlencoded({extended: true}))
 
-//Rotas
-app.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Home'
-  })
-})
+// Definindo as rotas
+app.use('/', routes)
 
 //404 Error Not Found
 app.use((req,res) => {
