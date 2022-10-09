@@ -1,0 +1,69 @@
+A partir do document schema que iremos criar nossas tabelas do banco de dados
+
+// Definindo o schema
+const schema = new mongoose.Schema(), essa função recebe como parâmetro um objeto ,onde passamos todos os campos que vai ter na nossa tabela
+
+const schema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  email: String,
+  password: String
+})
+
+Próximo passo é mandar o mongoose criar a collection no banco de dados
+
+mongoose.model('customers', schema)
+
+O primeiro parâmetro é o nome da tabela e o segundo é a própria tabela
+
+O próximo passo é ir no nosso arquivo de db e definir qual banco de dados a conexão vai ser feita
+
+ mongoose.connect('mongodb://localhost:27017/projeto-crud')
+
+Informamos o bando de dados apos o /
+
+A collection que definimos vai ser criada no projeto-crud, pra ser criada a colleciton, temos que ter um documento pra ser salvo
+
+mongoose.model('customers', schema) - Isso retorna um conjunto de propriedades e métodos, logo vamos atribuir a uma variável
+
+const Model = mongoose.model('customers', schema)
+
+Aqui já introduzimos o conceito de MVC - Model, View e Controller
+
+Model é tudo que vai lidar com o db
+View é nossas páginas
+
+
+Agora criamos uma nova instancia do nosso modelo, pois é um registro novo, onde recebe os valores para a collection
+
+const register = new Model({
+  name: 'Kaio',
+  age: 22,
+  email: 'kaio_costa222@hotmail.com',
+  password: '123abcdsq'
+})
+
+Register retorna uma série de propriedades e métodos e um deles é o save()
+
+Agora salvamos a instância
+
+register.save()
+
+O próximo passo é colocar essas informações na pasta models, onde vai ter as definições de collections
+
+const mongoose = require('mongoose')
+
+// Definindo o schema
+const schema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  email: String,
+  password: String,
+});
+
+const Model = mongoose.model('customers', schema);
+
+module.exports = Model
+
+Não precisamos imposter o Model no server, quem vai importar é o controller
+
