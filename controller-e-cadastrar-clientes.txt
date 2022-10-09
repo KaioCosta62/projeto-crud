@@ -1,0 +1,70 @@
+router.get('/register', (req, res) => {
+  res.render('register', {
+    title: 'Cadastro de Clientes'
+  })
+})
+
+router.post('/register/new', (req, res) => {
+//Controller
+})
+
+
+Primeiro eu criei a rota de registro de clientes e criei a rota que vai receber as informações vindas do formulário
+
+O controller é responsável por receber os dados, manipular eles, enviar para o banco de dados e dar uma resposta
+
+O ideal é colocar os controlladores em um arquivo e pasta separados
+
+Se eu tenho um model de customers, eu tenho que ter um controller de customers
+
+Um controller é uma função que vamos criar e importar na nossa rota
+
+module.exports = {
+  add
+}
+
+Exportamos como objeto, pois vamos ter funções de adicionar cliente, remover cliente e editar cliente
+
+Nossa rota de post não vai receber um callback ela vai receber nossa função controller, nesse caso add
+
+const CustomersController = require('../controllers/customers')
+
+Por boa prática colocamos o model e o controller com inicial maiuscula
+
+router.post('/register/add', CustomersController.add)
+
+Sempre que houver uma request do tipo post, vai executar o controller add, a minha função add, recebe a request e a response, como o callback recebia
+
+function add(req,res){
+
+}
+
+Agora o próximo passo é receber os dados e salvar. Dentro do req, temos os dados no body,e é por lá que pegamos
+
+const {
+    name,
+    age,
+    email,
+    password
+  } = req.body
+
+Fiz a desestruturação do objeto
+
+Agora importamos o model customers
+
+const CostumersModel = require('../models/customers')
+
+Agora basta passar os valores de req.body para o customers
+
+const register = new CostumersModel({
+    name,
+    age,
+    email,
+    password
+})
+
+Agora basta salvar
+
+register.save()
+
+Não podemos esquecer de criptograr as senhas cadastradas no db
