@@ -1,5 +1,11 @@
 const CustumersModel = require('../models/customers');
 const { crypto } = require('../utils/password');
+const readline = require('readline')
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
 
 const defaultTitle = 'Cadastro de Clientes';
 
@@ -68,13 +74,19 @@ async function edit(req, res) {
   });
 }
 
-async function remove(req, res) {
-  const { id } = req.params;
-  const remove = await CustumersModel.deleteOne({ _id: id });
-
-  if(remove.deletedCount){
-    res.redirect('/list')
-  }
+function remove(req, res) {
+  rl.question('Você deseja remover o item? (s) (n): ', async (remover )=> {
+    if(remover === 's'){
+      const { id } = req.params;
+      const remove = await CustumersModel.deleteOne({ _id: id });
+    
+      if(remove.deletedCount){
+        res.redirect('/list')
+      }
+    }else{
+      res.redirect('/')
+    }
+  })
 }
 
 module.exports = {
