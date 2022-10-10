@@ -9,7 +9,7 @@
       <li>
         Nome:<%= user.name %> | Idade: <%= user.age %> | E-mail: <%= user.email %>
         <a href="/edit?id=<%=user._id%>">[Editar]</a> -
-        <a href="/remove?id=<%=user._id%>">[Remover]</a>
+        <a href="/remove/<%=user._id%>">[Remover]</a>
       </li>
     <% }) %>
   </ul>

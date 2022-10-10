@@ -16,6 +16,6 @@ router.get('/edit', CustomersController.formEdit)
 router.post('/edit/:id', CustomersController.edit)
 
 //Remover
-router.get('/remove', CustomersController.remove)
+router.get('/remove/:id', CustomersController.remove)
 
 module.exports = router

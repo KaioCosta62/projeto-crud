@@ -69,7 +69,7 @@ async function edit(req, res) {
 }
 
 async function remove(req, res) {
-  const { id } = req.query;
+  const { id } = req.params;
   const remove = await CustumersModel.deleteOne({ _id: id });
 
   if(remove.deletedCount){
