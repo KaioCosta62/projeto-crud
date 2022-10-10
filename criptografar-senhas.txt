@@ -1,0 +1,41 @@
+Vamos usar a biblioteca bcrypt para criptografar nossas senhas antes de serem mandadas pro db
+
+Primeiramente vamos instalar ela: npm install bcrypt
+
+Primeiramente temos que gerar o hash através do bcrypt
+
+const senhaCripto = await bcrypt.hash()
+
+O hash recebe 2 parâmetros: senha e o salt, a biblioteca do bcrypt gera um salt
+
+const salt = await bcrypt.genSalt()
+
+const senhaCripto = await bcrypt.hash(senha, salt)
+
+A senha passada tem que ser obrigatoriamente uma string
+
+O salt é uma hash, um conjunto de caracteres que vai gerar uma senha criptografada
+
+O salt é mais um fator de segurança pra gerar a senha criptografada
+
+Por questão de organização, vou criar uma nova pasta onde vai ficar todos os arquivos auxiliares no desenvolvimento do projeto
+
+No meu controller eu importo essa função e atribuo o valor passado a uma variável
+
+const passwordCrypto = crypto(password)
+
+Eu criptografo a senha antes de passar para o db
+
+ const register = new CostumersModel({
+    name,
+    age,
+    email,
+    password: passwordCrypto
+  })
+
+Com a senha criptografada, eu passo para password o valor de passwordCrypto
+
+Como a biblioteca bcrypt é assíncrona, a minha função add() vai ter que ser async, para o await funcionar quando chamar a função crypto()
+
+Caso tenhamos um sistema de login, a gente pega o valor passado pelo usuário no campo e compara com a hash gerada, tudo isso através ao bcrypt
+
