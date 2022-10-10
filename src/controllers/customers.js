@@ -1,4 +1,4 @@
-const CostumersModel = require('../models/customers')
+const CustumersModel = require('../models/customers')
 const {crypto} = require('../utils/password')
 
 const defaultTitle = 'Cadastro de Clientes'
@@ -19,7 +19,7 @@ async function add(req,res){
 
   const passwordCrypto = await crypto(password)
 
-  const register = new CostumersModel({
+  const register = new CustumersModel({
     name,
     age,
     email,
@@ -35,7 +35,7 @@ async function add(req,res){
 }
 
 async function listUsers(req,res){
-  const users = await CostumersModel.find()
+  const users = await CustumersModel.find()
   res.render('listUsers', {
     title: 'Listagem de Usuários',
     users
