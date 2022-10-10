@@ -1,0 +1,114 @@
+Quando o usuário clicar em editar, vou levar ele para um formulário onde ele vai alterar os dados
+
+Vou criar uma rota de editar
+
+router.get('/edit', CustomersController.edit)
+
+Essa será a rota que o usuário sera direcionado ao clicar em editar
+
+Obviamente, precisamos de uma rota que vai receber os dados via post
+
+function indexEdit(req,res){
+  res.render('/edit', {
+    title: 'Editar usuário'
+  })
+}
+
+
+Rota da página /edit
+
+Após isso devemos também criar a view
+
+Quando o usuário clicar em editar, eu tenho que preencher os campos do formulário com os dados já existentes
+
+O primeiro passo é enviar o id que ta cadastrado no banco para a url do form edit
+
+localhost:5500/edit?id=10
+
+A página vai procurar o id preencher os dados
+
+<a href="/edit?id=<%=user._id%>">[Editar]</a>
+
+O _id é o que vem do db
+
+http://localhost:5500/edit?id=63431cebf26070c8c9894e76
+
+Olha como ficou a url quando clicamos em editar, agora podemos pegar os dados no controller
+
+Esse dado está disponível no req.query
+
+{ id: '63431cebf26070c8c9894e76' }
+
+Isso que está vindo na URL chama-se query string, que são os parâmetros que passamos na url, podemos passar + de 1 parâmetro separados por um &
+
+const {id} = req.query
+
+Agora basta procurar esse usuário no banco de dados
+
+const user = await CustumersModel.findById(id) - Retorna o usuário que tenha esse id caso ele não encontrar, irá retornar null
+
+Lembrando que é um código assíncrono
+
+Agora basta passar a constante user na view 
+
+res.render('edit', {
+    title: 'Editar usuário',
+    user
+ })
+
+Agora basta ir no nosso form da view edit e passar os valores vinda de user
+
+Agora a parte de identificar qual usuário vai ser editado e já preencher as informações, foi concluida. O próximo passo é editar os dados e retornar essa informação pro banco de dados salvar os dados editados
+
+Vamos enviar o id do usuário pela action do form dos dados editados
+
+<form action="/edit/<%= user._id %>" method="post">
+
+function edit(req,res){
+  const {
+    name,
+    age,
+    email,
+    password
+  } = req.body
+}
+
+Na minha rota de edit, eu pego os dados que ta vindo via post, pelo req.body
+
+router.post('/edit', CustomersController.edit)
+
+Habilitei minha rota de post que vai receber os dados editados
+
+Note, que temos que passar um parâmetro nessa rota para poder receber os dados, pois no action do nosso form, temos /edit/<%= user._id %>
+
+Ou seja, edit/algumaCoisa e não apenas /edit
+
+Então vamos adicionar um parâmetro nessa rota
+
+router.post('/edit/:id', CustomersController.edit)
+
+Quando mandamos assim os dados, nós não pegamos pelo req.query, e sim pelo req.params
+
+Lembrando que: req.body Nos pegamos tudo que vem do formulário, req.query pegamos tudo que vem da url e req.params tudo que vem pelo action
+
+Agora basta procurar o usuário pelo ID e mudar os dados e salvar
+
+const user = await CustumersModel.findById(id)
+
+agora que eu já sei o usuário, basta alterar os valores, lembrando que user é um objeto que tem as propriedades name,age e email
+
+user.name = name
+ user.age = age
+ user.email = email
+
+Feito isso, basta salvar o banco de dados
+
+user.save()
+
+res.render('edit', {
+    title: 'Editar usuário',
+    user,
+    message: 'Usuário alterado com sucesso'
+  })
+
+Exibo ainda uma mensagem de feedback, falando que o usuário foi alterado com sucesso
