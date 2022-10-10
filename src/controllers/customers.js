@@ -30,7 +30,7 @@ async function add(req,res){
 
   res.render('register', {
     title: defaultTitle,
-    message: 'Cadastro realizado com sucesso'
+    message: 'Cadastro realizado com'
   })
 }
 

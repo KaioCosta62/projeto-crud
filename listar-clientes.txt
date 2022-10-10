@@ -1,0 +1,47 @@
+Criei uma rota que vai receber a liista de usuários
+
+function listUsers(req,res){
+  res.render('listUsers', {
+    
+  })
+}
+
+router.get('/list', CustomersController.listUsers)
+
+function listUsers(req,res){
+  res.render('listUsers', {
+    users: []
+  })
+}
+
+Passei para a view a propriedade users que vai receber os usuários vindo do db
+
+Criei uma view da listagem de usuários
+
+Vou retornar todos os usuários vindo do db na minha function listUsers
+
+CostumersModel.find()
+
+O método find() retorna os usuários, ele pode receber parâmetros para filtrar, mas no caso quero listar todo mundo, esse método é assincrono, ou seja, ele retorna uma promise, logo vou colocar minha function listUsers com o async e atribuir o valor vindo do método find em uma constante chamada users, e inserir o await
+
+async function listUsers(req,res){
+  const Users = await CostumersModel.find()
+  res.render('listUsers', {
+    title: 'Listagem de Usuários',
+    users: [],
+  })
+}
+
+Agora basta retornar na view na propriedade users
+
+async function listUsers(req,res){
+  const users = await CostumersModel.find()
+  res.render('listUsers', {
+    title: 'Listagem de Usuários',
+    users
+  })
+}
+
+Como o nome são iguais, não preciso repetir
+
+Agora basta ir na view listUsers e fazer um laço de repetição exibindo as informações vindo de users
