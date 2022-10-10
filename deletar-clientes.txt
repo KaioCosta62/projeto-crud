@@ -1,0 +1,39 @@
+Primeiramente criamos o link na view list
+
+<a href="/edit?id=<%=user._id%>">[Remover]</a> 
+
+Vamos alterar a rota
+
+<a href="/remove?id=<%=user._id%>">[Remover]</a> 
+
+Dessa vez não vou fazer o recebimento do id por query string, vou fazer receber igual fizemos com o post, via req.params
+
+<a href="/remove/<%=user._id%>">[Remover]</a> 
+
+O próximo passo é configurar a rota 
+
+router.get('/remove/:id', CustomersController.remove)
+
+Agora vamos no nosso controller e criar a função remove
+
+async function remove(req,res){
+
+}
+
+Agora basta selecionar o id pelo req.params
+
+const id = req.params
+
+Para remover, usamos o método deleteOne, que vem do mongoose, basta passar um {id: idASerRemovido}
+
+const remove = await CustumersModel.deleteOne({_id: id})
+
+Esse _id é o que está no db
+
+Esse remove me retorna um objeto
+
+if(remove.deleteCount){
+
+}
+
+Esse remove retorna a propriedade deleteCount, onde tem os valores 1 e 0, se for 1, vamos redirecionar pra pagina list novamente, usando o redirect
